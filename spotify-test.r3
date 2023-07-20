@@ -1,6 +1,6 @@
 Rebol [
 	Title:  "Test Spotify module"
-	Version: 0.2.0
+	Version: 0.2.1
 	Author:  @Oldes
 	Date:    20-Jul-2023
 	File:    %test-spotify.r3
@@ -17,11 +17,16 @@ spotify: import %spotify.reb
 
 test-all?: false ;; I don't want CI tests to stop my real playback
 
+errors: 0 ;; error counter (process return value)
+
 do-test: func[title code][
 	print-horizontal-line
 	print as-yellow title
 	probe code
-	try/with code :print
+	try/with code [
+		print system/state/last-error
+		++ errors
+	]
 ]
 
 
@@ -182,3 +187,5 @@ if test-all? [
 		probe spotify/put %me/player/seek?position_ms=0
 	]
 ]
+
+quit/return errors
