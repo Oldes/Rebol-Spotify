@@ -267,14 +267,16 @@ refresh: function[
 		])
 	]
 	data: attempt [load-json result/3]
-	either result/1 >= 400 [
+	if result/1 >= 400 [
 		sys/log/error 'SPOTIFY "Failed to refresh access token!"
 		if data/error_description [	sys/log/error 'SPOTIFY data/error_description ]
-		none
-	][
-		attempt [data/expires_in: now + (to time! data/expires_in)]
-		ctx/token: data
+		return none
 	]
+	try/with [
+		data/expires_in: now + (to time! data/expires_in)
+		ctx/token: data
+		store-config ctx
+	] :print
 ]
 
 request: func [
