@@ -1,0 +1,33 @@
+name: 'Rebol-Spotify CI'
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Rebol for the test
+      uses: oldes/install-rebol@v3.11.0
+      with:
+        product: Bulk
+
+    - name: Setup Rebol user enironment
+      env:
+        REBOL_SAFE_FILE: ${{ secrets.REBOL_SAFE_FILE }}
+        REBOL_USER_FILE: ${{ secrets.REBOL_USER_FILE }}
+      run: |
+        echo $REBOL_USER_FILE > /home/runner/user.reb
+        ./rebol3 --do "? system/user"
+
+    - name: Test Spotify API module
+      run:  ./rebol3 spotify-test.r3
