@@ -1,7 +1,7 @@
 Rebol [
 	Title:   "Spotify"
 	Purpose: "Spotify Web API access"
-	Version: 0.2.0
+	Version: 0.2.1
 	Author:  @Oldes
 	Date:    20-Jul-2023
 	File:    %spotify.reb
@@ -272,6 +272,7 @@ refresh: function[
 		if data/error_description [	sys/log/error 'SPOTIFY data/error_description ]
 		none
 	][
+		attempt [data/expires_in: now + (to time! data/expires_in)]
 		ctx/token: data
 	]
 ]
