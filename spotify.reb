@@ -6,9 +6,9 @@ Rebol [
 	Date:    20-Jul-2023
 	File:    %spotify.reb
 	Home:    https://github.com/oldes/Rebol-Spotify
-	Name:    'spotify
-	Type:    'module
-	Require: 'httpd
+	Name:    spotify
+	Type:    module
+	Require: httpd
 	Note: {
 		Useful info:
 		https://developer.spotify.com/documentation/general/guides/authorization-guide/
