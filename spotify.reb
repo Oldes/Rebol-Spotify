@@ -70,7 +70,7 @@ config: function[
 		ctx/client-secret: ask/hide "Client Secret: "
 	][	;; when user hits ESC...
 		sys/log/error 'spotify "Missing credentials!"
-		return #()
+		return make map! []
 	]
 	if empty? ctx/client-secret [ctx/client-secret: none] ;optional
 
@@ -285,7 +285,7 @@ request: func [
 	data   [any-type!]
 	/local ctx header result
 ][
-	header: clear #()
+	header: clear make map! 5
 
 	try/with [
 		ctx: config
