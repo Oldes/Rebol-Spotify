@@ -124,7 +124,8 @@ authorize: function [
 	unless string? client-id [ client-id: form client-id ]
 
 	unless string? scopes: any [ctx/scopes default-scopes] [ scopes: form scopes ]
-	parse scopes [any [change some #[bitset! #{0064000080}] #"+" | skip]] ; url-encode spaces in scopes
+	whitespace: system/catalog/bitsets/whitespace
+	parse scopes [any [change some whitespace #"+" | skip]] ; url-encode spaces in scopes
 
 	unless integer? ctx/port [ ctx/port: 8989 ]
 	;@@ The value of redirect_uri here must exactly match one of the values
@@ -163,8 +164,8 @@ authorize: function [
 	; listening on specified port (limited to accept only local requests, as the redirect is
 	; going from the browser actually.. it automaticaly close itself once data are received
 	result: system/modules/httpd/http-server/config/actor ctx/port [
-		root:       #[false] ; we are not serving any content!
-		keep-alive: #[false]
+		root:       false ; we are not serving any content!
+		keep-alive: false
 	] [
 		On-Accept: func [info [object!]][
 			; allow only connections from localhost
