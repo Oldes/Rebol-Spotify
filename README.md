@@ -1,4 +1,8 @@
+[![rebol-spotify](https://github.com/user-attachments/assets/ea943151-421c-49f4-95f3-3ad955661a7d)](https://github.com/Oldes/Rebol-Spotify)
+
 [![Rebol-Spotify CI](https://github.com/Oldes/Rebol-Spotify/actions/workflows/main.yml/badge.svg)](https://github.com/Oldes/Rebol-Spotify/actions/workflows/main.yml)
+[![Gitter](https://badges.gitter.im/rebol3/community.svg)](https://app.gitter.im/#/room/#Rebol3:gitter.im)
+[![Zulip](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg)](https://rebol.zulipchat.com/)
 
 # Rebol/Spotify
 
